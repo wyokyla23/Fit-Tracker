@@ -1,6 +1,6 @@
 import React from "react";
+import Main from "./router/Main/Main";
 
-// <Router>
 //   <Theme>
 //     <Container>
 //       <Header>
@@ -8,9 +8,8 @@ import React from "react";
 //       <Routes/>
 //     </Container>
 //   </Theme>
-// </Router>
 function App() {
-  return <div>Hello</div>;
+  return <Main />;
 }
 
 export default App;
