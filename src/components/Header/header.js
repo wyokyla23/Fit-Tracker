@@ -67,7 +67,7 @@ export default function Header() {
             </IconButton>
             <Button
               component={Link}
-              to="./home-page"
+              to="/"
               disableRipple
               color="inherit"
             >
@@ -89,7 +89,7 @@ export default function Header() {
             >
               <Button
                 component={Link}
-                to="./home-page"
+                to="/"
                 color="inherit"
               >
                 Home
@@ -101,7 +101,7 @@ export default function Header() {
             >
               <Button
                 component={Link}
-                to="./profile-page"
+                to="/profile-page"
                 color="inherit"
               >
                 Profile
@@ -113,7 +113,7 @@ export default function Header() {
             >
               <Button
                 component={Link}
-                to="./login-page"
+                to="/login-page"
                 color="inherit"
               >
                 Login

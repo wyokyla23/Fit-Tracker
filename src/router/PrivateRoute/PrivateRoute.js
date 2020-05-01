@@ -1,6 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  Route,
+  Redirect,
+} from "react-router-dom";
 
-export default function PrivateRoute() {
-  return <div>Private Route</div>;
+export default function PrivateRoute({
+  loggedIn,
+  ...rest
+}) {
+  if (loggedIn) {
+    return <Route {...rest} />;
+  } else {
+    return <Redirect to="/login-page" />;
+  }
 }

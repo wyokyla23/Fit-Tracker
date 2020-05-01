@@ -8,22 +8,50 @@ import HomePage from "../../pages/HomePage";
 import ProfilePage from "../../pages/ProfilePage";
 import WorkoutPage from "../../pages/WorkoutPage";
 import LoginPage from "../../pages/LoginPage";
+import SignUp from "../../pages/SignUp";
+import PrivateRoute from "../PrivateRoute";
+import PublicRoute from "../PublicRoute";
 
 export default function Main() {
+  const user = null;
+  const loggedIn = Boolean(user);
   return (
     <Switch>
-      <Route exact path="/home-page">
+      <PrivateRoute
+        loggedIn={loggedIn}
+        exact
+        path="/"
+      >
         <HomePage />
-      </Route>
-      <Route exact path="/profile-page">
+      </PrivateRoute>
+      <PrivateRoute
+        loggedIn={loggedIn}
+        exact
+        path="/profile-page"
+      >
         <ProfilePage />
-      </Route>
-      <Route exact path="/login-page">
+      </PrivateRoute>
+      <PublicRoute
+        loggedIn={loggedIn}
+        exact
+        path="/login-page"
+      >
         <LoginPage />
-      </Route>
-      <Route exact path="/workout-page">
+      </PublicRoute>
+      <PublicRoute
+        loggedIn={loggedIn}
+        exact
+        path="/signup-page"
+      >
+        <SignUp />
+      </PublicRoute>
+      <PrivateRoute
+        loggedIn={loggedIn}
+        exact
+        path="/workout-page"
+      >
         <WorkoutPage />
-      </Route>
+      </PrivateRoute>
     </Switch>
   );
 }

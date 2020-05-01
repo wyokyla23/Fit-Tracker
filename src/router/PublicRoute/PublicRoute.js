@@ -1,6 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  Route,
+  Redirect,
+} from "react-router-dom";
 
-export default function PublicRoute() {
-  return <div>Public Route</div>;
+export default function PublicRoute({
+  loggedIn,
+  ...rest
+}) {
+  if (loggedIn) {
+    return <Redirect to="/" />;
+  } else {
+    return <Route {...rest} />;
+  }
 }
