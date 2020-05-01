@@ -1,6 +1,8 @@
 import React from "react";
-import Main from "./router/Main/Main";
-
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "./theme";
+import Main from "./router/Main/main";
+import Header from "./components/Header";
 //   <Theme>
 //     <Container>
 //       <Header>
@@ -9,7 +11,12 @@ import Main from "./router/Main/Main";
 //     </Container>
 //   </Theme>
 function App() {
-  return <Main />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Header />
+      <Main />
+    </ThemeProvider>
+  );
 }
 
 export default App;

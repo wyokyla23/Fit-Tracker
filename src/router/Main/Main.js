@@ -4,25 +4,26 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/styles";
 import HomePage from "../../pages/HomePage";
 import ProfilePage from "../../pages/ProfilePage";
 import WorkoutPage from "../../pages/WorkoutPage";
+import LoginPage from "../../pages/LoginPage";
 
 export default function Main() {
   return (
-    <ThemeProvider>
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route exact path="/ProfilePage">
-          <ProfilePage />
-        </Route>
-        <Route exact path="/WorkoutPage">
-          <WorkoutPage />
-        </Route>
-      </Switch>
-    </ThemeProvider>
+    <Switch>
+      <Route exact path="/home-page">
+        <HomePage />
+      </Route>
+      <Route exact path="/profile-page">
+        <ProfilePage />
+      </Route>
+      <Route exact path="/login-page">
+        <LoginPage />
+      </Route>
+      <Route exact path="/workout-page">
+        <WorkoutPage />
+      </Route>
+    </Switch>
   );
 }
