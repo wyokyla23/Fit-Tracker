@@ -4,7 +4,9 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import { Formik } from "formik";
+import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
+import { useFormik } from "formik";
 import { TextField } from "@material-ui/core";
 import * as Yup from "yup";
 
@@ -18,6 +20,13 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       minHeight: "200px",
     },
+  },
+  signupButtonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  signupButton: {
+    color: "blue",
   },
   paperContainer: {
     maxWidth: "900px",
@@ -42,14 +51,24 @@ export default function LoginPage() {
       .max(20, "Too long!")
       .required("Required"),
   });
+  // add login functionality
+  const onSubmit = (values, formik) => {
+    console.log({ values });
+  };
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: schema,
+    onSubmit: onSubmit,
+  });
 
   return (
     <Container className={classes.paperContainer}>
       <Paper elevation={24}>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={schema}
-        >
+        <form onSubmit={handleSubmit}>
           <Grid
             container
             spacing={4}
@@ -57,6 +76,8 @@ export default function LoginPage() {
           >
             <Grid item>
               <TextField
+                onChange={handleChange}
+                value={values.username}
                 required
                 id="username"
                 name="username"
@@ -65,6 +86,8 @@ export default function LoginPage() {
             </Grid>
             <Grid item>
               <TextField
+                onChange={handleChange}
+                value={values.password}
                 required
                 id="password"
                 name="password"
@@ -72,12 +95,32 @@ export default function LoginPage() {
               />
             </Grid>
             <Grid item>
-              <Button variant="outlined">
-                Submit
+              <Button
+                type="submit"
+                variant="outlined"
+              >
+                Log In
               </Button>
             </Grid>
           </Grid>
-        </Formik>
+          <Grid
+            container
+            spacing={4}
+            className={
+              classes.signupButtonContainer
+            }
+          >
+            <Typography>
+              No account? Sign up&nbsp;
+              <Link
+                className={classes.signupButton}
+                to="/signup-page"
+              >
+                here
+              </Link>
+            </Typography>
+          </Grid>
+        </form>
       </Paper>
     </Container>
   );
