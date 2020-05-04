@@ -42,7 +42,7 @@ export default function LoginPage() {
   };
 
   const schema = Yup.object().shape({
-    username: Yup.string()
+    email: Yup.string()
       .min(2, "Too short!")
       .max(20, "Too long!")
       .required("Required"),
@@ -77,11 +77,11 @@ export default function LoginPage() {
             <Grid item>
               <TextField
                 onChange={handleChange}
-                value={values.username}
+                value={values.email}
                 required
-                id="username"
-                name="username"
-                label="username"
+                id="email"
+                name="email"
+                label="email"
               />
             </Grid>
             <Grid item>

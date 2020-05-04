@@ -5,13 +5,11 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import {
-  Link,
-  useHistory,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { TextField } from "@material-ui/core";
 import * as Yup from "yup";
+import * as firebase from "firebase/app";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -56,11 +54,11 @@ export default function SignUpPage() {
       .max(20, "Too long!")
       .required("Required"),
     password: Yup.string()
-      .min(2, "Too short!")
+      .min(6, "Too short!")
       .max(20, "Too long!")
       .required("Required"),
     confirmPassword: Yup.string()
-      .min(2, "Too short!")
+      .min(6, "Too short!")
       .max(20, "Too long!")
       .required("Required")
       .test(
@@ -76,8 +74,19 @@ export default function SignUpPage() {
       .required("Required"),
   });
   // add login functionality
-  const onSubmit = async (values, formik) => {
-    console.log({ values });
+  const onSubmit = (
+    { email, password, username },
+    formik
+  ) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(
+        email,
+        password
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const {
     handleChange,
