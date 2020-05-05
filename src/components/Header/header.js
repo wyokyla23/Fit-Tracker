@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Grid from "@material-ui/core/Grid";
-import { useTheme } from "@material-ui/core/styles";
+import * as firebase from "firebase/app";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,9 +42,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+export default function Header({
+  loggedIn,
+  user,
+}) {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <div className={classes.root}>
@@ -111,13 +113,34 @@ export default function Header() {
               item
               className={classes.gridItem}
             >
-              <Button
-                component={Link}
-                to="/login-page"
-                color="inherit"
-              >
-                Login
-              </Button>
+              {loggedIn ? (
+                <Button
+                  component={Link}
+                  to="/login-page"
+                  color="inherit"
+                  onClick={() =>
+                    firebase
+                      .auth()
+                      .signOut()
+                      .then(function () {
+                        console.log("signed out");
+                      })
+                      .catch(function (error) {
+                        console.error(error);
+                      })
+                  }
+                >
+                  Log Out
+                </Button>
+              ) : (
+                <Button
+                  component={Link}
+                  to="/login-page"
+                  color="inherit"
+                >
+                  Login
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Toolbar>

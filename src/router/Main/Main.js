@@ -17,38 +17,7 @@ import PrivateRoute from "../PrivateRoute";
 import PublicRoute from "../PublicRoute";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-export default function Main() {
-  const [user, setUser] = useState({
-    loading: true,
-    data: null,
-  });
-  const loggedIn = Boolean(user.data);
-  useEffect(() => {
-    firebase
-      .auth()
-      .onAuthStateChanged(function (user) {
-        setTimeout(() => {
-          setUser({
-            loading: false,
-            data: user,
-          });
-        }, 1000);
-      });
-  }, []);
-  if (user.loading) {
-    return (
-      <div
-        style={{
-          minHeight: "50vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CircularProgress />
-      </div>
-    );
-  }
+export default function Main({ user, loggedIn }) {
   return (
     <Switch>
       <PrivateRoute

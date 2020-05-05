@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { TextField } from "@material-ui/core";
 import * as Yup from "yup";
+import * as firebase from "firebase/app";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -41,28 +42,36 @@ export default function LoginPage() {
     password: "",
   };
 
-  const schema = Yup.object().shape({
+  const validationSchema = Yup.object().shape({
     email: Yup.string()
       .min(2, "Too short!")
       .max(20, "Too long!")
       .required("Required"),
     password: Yup.string()
-      .min(2, "Too short!")
+      .min(6, "Too short!")
       .max(20, "Too long!")
       .required("Required"),
   });
   // add login functionality
   const onSubmit = (values, formik) => {
-    console.log({ values });
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        values.email,
+        values.password
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   };
+
   const {
     handleChange,
-    values,
     handleSubmit,
   } = useFormik({
-    initialValues: initialValues,
-    validationSchema: schema,
-    onSubmit: onSubmit,
+    initialValues,
+    validationSchema,
+    onSubmit,
   });
 
   return (
@@ -77,7 +86,6 @@ export default function LoginPage() {
             <Grid item>
               <TextField
                 onChange={handleChange}
-                value={values.email}
                 required
                 id="email"
                 name="email"
@@ -87,11 +95,11 @@ export default function LoginPage() {
             <Grid item>
               <TextField
                 onChange={handleChange}
-                value={values.password}
                 required
                 id="password"
                 name="password"
                 label="password"
+                type="password"
               />
             </Grid>
             <Grid item>

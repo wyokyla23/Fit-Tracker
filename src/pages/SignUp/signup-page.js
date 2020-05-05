@@ -75,7 +75,7 @@ export default function SignUpPage() {
   });
   // add login functionality
   const onSubmit = (
-    { email, password, username },
+    { email, password },
     formik
   ) => {
     firebase
@@ -86,13 +86,15 @@ export default function SignUpPage() {
       )
       .catch((error) => {
         console.error(error);
+        console.log(email, password);
       });
   };
   const {
     handleChange,
-    values,
+    touched,
     errors,
     handleSubmit,
+    handleBlur,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: schema,
@@ -111,53 +113,71 @@ export default function SignUpPage() {
             <Grid item>
               <TextField
                 onChange={handleChange}
-                value={values.username}
                 required
                 id="username"
                 name="username"
                 label="username"
-                error={Boolean(errors.username)}
-                helperText={errors.username}
+                onBlur={handleBlur}
+                error={Boolean(
+                  touched.username &&
+                    errors.username
+                )}
+                helperText={
+                  touched.username &&
+                  errors.username
+                }
               />
             </Grid>
             <Grid item>
               <TextField
                 onChange={handleChange}
-                value={values.email}
                 required
                 id="email"
                 name="email"
                 label="email"
-                error={Boolean(errors.email)}
-                helperText={errors.email}
+                onBlur={handleBlur}
+                error={Boolean(
+                  touched.email && errors.email
+                )}
+                helperText={
+                  touched.email && errors.email
+                }
               />
             </Grid>
             <Grid item>
               <TextField
                 onChange={handleChange}
-                value={values.password}
                 required
                 type="password"
                 id="password"
                 name="password"
                 label="password"
-                error={Boolean(errors.password)}
-                helperText={errors.password}
+                onBlur={handleBlur}
+                error={Boolean(
+                  touched.password &&
+                    errors.password
+                )}
+                helperText={
+                  touched.password &&
+                  errors.password
+                }
               />
             </Grid>
             <Grid item>
               <TextField
                 onChange={handleChange}
-                value={values.confirmPassword}
                 required
                 type="password"
                 id="confirmPassword"
                 name="confirmPassword"
                 label="confirm password"
+                onBlur={handleBlur}
                 error={Boolean(
-                  errors.confirmPassword
+                  touched.confirmPassword &&
+                    errors.confirmPassword
                 )}
                 helperText={
+                  touched.confirmPassword &&
                   errors.confirmPassword
                 }
               />
