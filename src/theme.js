@@ -1,7 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const fitPurple = "#292659";
-const fitLightPurple = "#595688";
+const fitLightPurple = "#C0BFD1";
 
 export default createMuiTheme({
   palette: {

@@ -7,7 +7,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 import HomePage from "../../pages/HomePage";
 import ProfilePage from "../../pages/ProfilePage";
 import WorkoutPage from "../../pages/WorkoutPage";
@@ -15,6 +15,7 @@ import LoginPage from "../../pages/LoginPage";
 import SignUp from "../../pages/SignUp";
 import PrivateRoute from "../PrivateRoute";
 import PublicRoute from "../PublicRoute";
+import NotFound from "../../pages/NotFound";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Main({ user, loggedIn }) {
@@ -55,6 +56,9 @@ export default function Main({ user, loggedIn }) {
       >
         <WorkoutPage />
       </PrivateRoute>
+      <Route path="/">
+        <NotFound />
+      </Route>
     </Switch>
   );
 }
