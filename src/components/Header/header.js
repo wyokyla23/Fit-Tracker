@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header({
   loggedIn,
+  isAdmin,
   user,
 }) {
   const classes = useStyles();
@@ -109,6 +110,32 @@ export default function Header({
                 Profile
               </Button>
             </Grid>
+            <Grid
+              item
+              className={classes.gridItem}
+            >
+              <Button
+                component={Link}
+                to="/find-workouts-page"
+                color="inherit"
+              >
+                Find A Workout
+              </Button>
+            </Grid>
+            {isAdmin && (
+              <Grid
+                item
+                className={classes.gridItem}
+              >
+                <Button
+                  component={Link}
+                  to="/admin/create-workout"
+                  color="inherit"
+                >
+                  Create Workout
+                </Button>
+              </Grid>
+            )}
             <Grid
               item
               className={classes.gridItem}

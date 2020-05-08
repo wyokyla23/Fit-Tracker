@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -11,30 +12,20 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 900,
-    minWidth: 700,
+    maxWidth: 300,
+    minWidth: 300,
     [theme.breakpoints.down("sm")]: {
-      minWidth: 500,
+      minWidth: 200,
     },
     [theme.breakpoints.down("xs")]: {
-      minWidth: 300,
+      minWidth: 100,
     },
   },
   media: {
     height: 100,
   },
-  workoutCardContainer: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "3em",
-    minHeight: "300px",
-    [theme.breakpoints.down("md")]: {
-      minHeight: "200px",
-    },
-  },
-  exerciseButton: {
-    justifyContent: "center",
+  workoutCardTypography: {
+    textAlign: "center",
   },
 }));
 
@@ -42,26 +33,34 @@ export default function WorkoutCard() {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      className={classes.workoutCardContainer}
-    >
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image="https://material-ui.com/static/images/cards/contemplative-reptile.jpg"
-            title="Contemplative Reptile"
-          />
-        </CardActionArea>
-        <CardActions
-          className={classes.exerciseButton}
+    <Grid container>
+      <Grid item>
+        <Card className={classes.root}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image="https://cdn2.coachmag.co.uk/sites/coachmag/files/styles/insert_main_wide_image/public/2016/07/1-1-bench-press.jpg?itok=bJYGPFGO"
+              title="Contemplative Reptile"
+            />
+            <Typography
+              className={
+                classes.workoutCardTypography
+              }
+            >
+              Dumbbell Bench Press
+            </Typography>
+          </CardActionArea>
+        </Card>
+      </Grid>
+      <Grid item>
+        <Button
+          size="small"
+          color="primary"
+          to="/workout-page"
         >
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
+          Learn More
+        </Button>
+      </Grid>
     </Grid>
   );
 }

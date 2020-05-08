@@ -8,13 +8,15 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import theme from "./theme";
 import Main from "./router/Main";
 import Header from "./components/Header";
-//   <Theme>
-//     <Container>
-//       <Header>
-//       </Header>
-//       <Routes/>
-//     </Container>
-//   </Theme>
+
+const getUserByUID = async (db, uid) => {
+  const snapshot = await db
+    .collection("users")
+    .doc(uid)
+    .get();
+  return snapshot.data();
+};
+
 function App() {
   const [user, setUser] = useState({
     loading: true,
@@ -24,7 +26,13 @@ function App() {
   useEffect(() => {
     firebase
       .auth()
-      .onAuthStateChanged(function (user) {
+      .onAuthStateChanged(async function (
+        dbUser
+      ) {
+        const db = firebase.firestore();
+        const user = dbUser
+          ? await getUserByUID(db, dbUser.uid)
+          : null;
         setTimeout(() => {
           setUser({
             loading: false,
@@ -49,8 +57,15 @@ function App() {
   }
   return (
     <ThemeProvider theme={theme}>
-      <Header loggedIn={loggedIn} user={user} />
-      <Main loggedIn={loggedIn} user={user} />
+      <Header
+        loggedIn={loggedIn}
+        user={user.data}
+        isAdmin={user.data?.admin}
+      />
+      <Main
+        loggedIn={loggedIn}
+        user={user.data}
+      />
     </ThemeProvider>
   );
 }

@@ -11,6 +11,8 @@ import { TextField } from "@material-ui/core";
 import * as Yup from "yup";
 import * as firebase from "firebase/app";
 
+const validAdmins = ["wyokyla23@gmail.com"];
+
 const useStyles = makeStyles((theme) => ({
   root: {},
   loginGridContainer: {
@@ -84,6 +86,24 @@ export default function SignUpPage() {
         email,
         password
       )
+      .then((result) => {
+        const userObject = result.user;
+        let admin = false;
+        if (
+          validAdmins.some(
+            (userEmail) => userEmail === email
+          )
+        ) {
+          admin = true;
+        }
+        const db = firebase.firestore();
+        db.collection("users")
+          .doc(userObject.uid)
+          .set({
+            email,
+            admin,
+          });
+      })
       .catch((error) => {
         console.error(error);
         console.log(email, password);
